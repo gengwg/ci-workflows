@@ -49,6 +49,8 @@ jobs:
           llm_model: ${{ inputs.llm_model }}
           llm_use_anthropic: 'false'
           effort: low
+          # Per file group, not the whole review; the job's 20-minute cap is
+          # the backstop, and a timeout there marks the summary below.
           review_task_timeout: '12'
           review_concurrency: '4'
           sticky_summary: 'true'

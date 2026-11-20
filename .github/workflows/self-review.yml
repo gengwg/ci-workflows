@@ -2,6 +2,8 @@ name: self-review
 
 # Reviews this repo's PRs with the PR's own copy of ocr-review.yml, so a
 # change to the shared workflow runs here before other repos pick it up.
+# Running PR code with secrets is fine here: only same-repo branches get them,
+# and pushing one already needs write access, which can edit any workflow.
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
