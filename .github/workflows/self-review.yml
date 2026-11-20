@@ -1,0 +1,22 @@
+name: self-review
+
+# Reviews this repo's PRs with the PR's own copy of ocr-review.yml, so a
+# change to the shared workflow runs here before other repos pick it up.
+# Running PR code with secrets is fine here: only same-repo branches get them,
+# and pushing one already needs write access, which can edit any workflow.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    uses: ./.github/workflows/ocr-review.yml
+    with:
+      llm_url: ${{ vars.OCR_LLM_URL }}
+      llm_model: ${{ vars.OCR_LLM_MODEL }}
+    secrets:
+      llm_auth_token: ${{ secrets.OCR_LLM_AUTH_TOKEN }}
